@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: apiGateway
+
+
+  cloud:
+    gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders: "*" # or specify headers
+      routes:
+        - id: ForumService
+          uri: lb://ForumService
+          predicates:
+            - Path=/ForumService/**
+
+
+server:
+  port: 8081
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
